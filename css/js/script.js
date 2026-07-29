@@ -1,129 +1,103 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eulaine Modas</title>
+// =========================
+// EULAINE MODAS
+// script.js
+// =========================
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+// Atualiza o ano do rodapé automaticamente
+const ano = document.getElementById("ano");
+if (ano) {
+    ano.textContent = new Date().getFullYear();
+}
 
-<link rel="stylesheet" href="style.css">
-</head>
+// Menu mobile
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
 
-<body>
+if (menuBtn && menu) {
+    menuBtn.addEventListener("click", () => {
+        menu.classList.toggle("ativo");
+    });
+}
 
-<header>
+// Rolagem suave
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", function (e) {
+        e.preventDefault();
 
-<nav>
+        const destino = document.querySelector(this.getAttribute("href"));
 
-<h2>Eulaine Modas</h2>
+        if (destino) {
+            destino.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    });
+});
 
-<ul>
+// Botão voltar ao topo
+const voltarTopo = document.getElementById("voltar-topo");
 
-<li><a href="#">Início</a></li>
-<li><a href="#">Feminino</a></li>
-<li><a href="#">Masculino</a></li>
-<li><a href="#">Promoções</a></li>
-<li><a href="#">Contato</a></li>
+window.addEventListener("scroll", () => {
 
-</ul>
+    if (!voltarTopo) return;
 
-</nav>
+    if (window.scrollY > 400) {
+        voltarTopo.style.display = "block";
+    } else {
+        voltarTopo.style.display = "none";
+    }
 
-<div class="hero">
+});
 
-<img src="logo.png" class="logo">
+if (voltarTopo) {
+    voltarTopo.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
 
-<h1>Moda que valoriza seu estilo.</h1>
+// Pesquisa de produtos
+const pesquisa = document.getElementById("pesquisa");
+const produtos = document.querySelectorAll(".produto");
 
-<p>As melhores tendências da moda feminina e masculina.</p>
+if (pesquisa) {
 
-<a href="https://wa.me/5511987311889" class="btn">
-Comprar pelo WhatsApp
-</a>
+    pesquisa.addEventListener("keyup", () => {
 
-</div>
+        const texto = pesquisa.value.toLowerCase();
 
-</header>
+        produtos.forEach(produto => {
 
-<section class="produtos">
+            produto.style.display =
+                produto.innerText.toLowerCase().includes(texto)
+                ? "block"
+                : "none";
 
-<h2>Produtos em Destaque</h2>
+        });
 
-<div class="cards">
+    });
 
-<div class="card">
-<h3>Camisetas</h3>
-<p>R$ 44,99</p>
-</div>
+}
 
-<div class="card">
-<h3>Calças</h3>
-<p>R$ 78,99</p>
-</div>
+// Animação ao aparecer na tela
+const elementos = document.querySelectorAll(".animar");
 
-<div class="card">
-<h3>Vestidos</h3>
-<p>R$ 89,99</p>
-</div>
+const observador = new IntersectionObserver((entradas) => {
 
-</div>
+    entradas.forEach((entrada) => {
 
-</section>
+        if (entrada.isIntersecting) {
 
-<section class="sobre">
+            entrada.target.classList.add("mostrar");
 
-<h2>Sobre a Loja</h2>
+        }
 
-<p>
+    });
 
-A Eulaine Modas oferece peças modernas, elegantes e de alta qualidade para quem deseja estar sempre na moda.
+});
 
-</p>
+elementos.forEach((item) => observador.observe(item));
 
-</section>
-
-<section class="info">
-
-<h2>Informações</h2>
-
-<p>
-
-📍 Estr. do Marengo, 181 - Cidade Boa Vista - Suzano/SP
-
-</p>
-
-<p>
-
-📞 (11) 98731-1889
-
-</p>
-
-<p>
-
-⭐ Avaliação 5,0
-
-</p>
-
-<p>
-
-Instagram:
-@eulainemodas
-
-</p>
-
-</section>
-
-<footer>
-
-<p>
-
-© 2026 Eulaine Modas
-
-</p>
-
-</footer>
-
-</body>
-</html>
+console.log("Eulaine Modas carregado com sucesso.");
